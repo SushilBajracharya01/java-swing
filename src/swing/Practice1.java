@@ -30,22 +30,22 @@ public class Practice1 {
 		// JDBC driver name and database URL
 
 		public static final String DB_DRIVER_CLASS = "com.mysql.jdbc.Driver";
-		public static final String DB_URL = "jdbc:mysql://localhost:3306/javaTest";
+		public static final String DB_URL = "jdbc:mysql://localhost:3306/SchoolManagement";
 
 		// database credentails
 		public static final String DB_USERNAME = "root";
 		public static final String DB_PASSWORD = "password";
 
-		public static String sql = "insert into user (id, name, email, country, password) values (?,?,?,?,?);";
+		public String sql = "insert into studentRecord (Name, Password, Gender, Semester) values (?,?,?,?);";
 
-		public void InsertSubmit() {
+		public void InsertSubmit(String Name, String Password, String Gender, String Semester) {
 
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 
 			try {
 				// Step 2: Register JDBC driver
-				Class.forName("com.mysql.jdbc.Driver");
+				Class.forName("com.mysql.cj.jdbc.Driver");
 
 				// Step 3: Open a connection
 				System.out.println("Connecting to a selected database...");
@@ -55,12 +55,11 @@ public class Practice1 {
 				// Step 4: Execute a query
 				System.out.println("Inserting records into the table...");
 				pstmt = conn.prepareStatement(sql);
-
-				pstmt.setInt(1, 001);
-				pstmt.setString(2, "Sushil Bajracharya");
-				pstmt.setString(3, "bajracharya.sushil01@gmail.com");
-				pstmt.setString(4, "Nepal");
-				pstmt.setString(5, "password");
+				
+				pstmt.setString(1, Name);
+				pstmt.setString(2, Password);
+				pstmt.setString(3, Gender);
+				pstmt.setString(4, Semester);
 
 				boolean executed = pstmt.execute();
 
@@ -88,6 +87,9 @@ public class Practice1 {
 				Gender = "O";
 			}
 			String Semester = jcbsem.getSelectedItem().toString();
+			
+			
+			InsertSubmit(Name, Password, Gender, Semester);
 
 		}
 	}
